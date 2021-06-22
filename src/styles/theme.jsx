@@ -4,11 +4,14 @@ const theme = {
     textSecondary: '#586069',
     textInverted: '#fff',
     primary: '#0366d6',
+    background: '#e1e4e8',
+    backgroundActive: 'white'
   },
   fontSizes: {
     body: 14,
     subheading: 16,
-    tabItem: 20
+    tabItem: 20,
+    stat: 32
   },
   fonts: {
     main: 'System',
@@ -21,7 +24,8 @@ const theme = {
     medium: 16,
     small: 8,
     large: 32,
-    xlarge: 64
+    xlarge: 64,
+    xsmall: 4
   }
 };
 

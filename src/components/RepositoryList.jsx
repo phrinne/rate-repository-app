@@ -67,6 +67,7 @@ const RepositoryList = () => {
       forksCount={item.forksCount}
       reviewCount={item.reviewCount}
       ratingAverage={item.ratingAverage}
+      ownerAvatarUrl={item.ownerAvatarUrl}
     />
   );
 
