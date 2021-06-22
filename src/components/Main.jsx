@@ -1,11 +1,10 @@
 import React from 'react';
-import Constants from 'expo-constants';
-import { Text, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Constants.statusBarHeight,
     flexGrow: 1,
     flexShrink: 1,
   },
@@ -13,11 +12,28 @@ const styles = StyleSheet.create({
 
 const Main = () => {
   return (
+    <>
+    <AppBar />
     <View style={styles.container}>
-      <Text>Rate Repository Application</Text>
       <RepositoryList />
     </View>
+    </>
   );
 };
 
 export default Main;
+/*import React from "react";
+import Text from "./Text";
+
+const Main = () => (
+	<>
+		<Text>Simple text</Text>
+		<Text style={{ paddingBottom: 10 }}>Text with custom style</Text>
+		<Text fontWeight="bold" fontSize="subheading">
+			Bold subheading
+		</Text>
+		<Text color="textSecondary">Text with secondary color</Text>
+	</>
+);
+
+export default Main;*/
