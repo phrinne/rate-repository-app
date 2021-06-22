@@ -25,7 +25,8 @@ const theme = {
     small: 8,
     large: 32,
     xlarge: 64,
-    xsmall: 4
+    xsmall: 4,
+    componentHeight: 56
   }
 };
 

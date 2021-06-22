@@ -26,11 +26,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly'
   },
-  text: {
-    color: theme.colors.textInverted,
-    fontSize: theme.fontSizes.tabItem,
-    fontWeight: theme.fontWeights.bold
-  },
   image: {
     width: theme.spacing.xlarge,
     height: theme.spacing.xlarge,
