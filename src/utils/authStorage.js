@@ -6,8 +6,13 @@ class AuthStorage {
   }
 
   async getAccessToken() {
-    const rawToken = await AsyncStorage.getItem(`${this.namespace}:token`);
-    return rawToken?JSON.parse(rawToken):null;
+    const token = await AsyncStorage.getItem(`${this.namespace}:token`);
+    if(token) {
+      const out = JSON.parse(token);
+      //console.log("TOKEN ABOUT TO LEAVE FROM STORAGE", out);
+      return out;
+    }
+    return null;
   }
 
   async setAccessToken(accessToken) {
