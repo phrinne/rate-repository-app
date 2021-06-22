@@ -1,6 +1,7 @@
 import React from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet, Text } from 'react-native';
 import RepositoryItem from './RepositoryItem';
+import useRepositories from '../hooks/useRepositories';
 
 const styles = StyleSheet.create({
   separator: {
@@ -8,7 +9,40 @@ const styles = StyleSheet.create({
   },
 });
 
-const repositories = [
+const ItemSeparator = () => <View style={styles.separator} />;
+
+const RepositoryList = () => {
+  const { data, loading } = useRepositories();
+  if(loading) return <Text>loading...</Text>;
+  const repositoryNodes = data.repositories?data.repositories.edges.map(edge => edge.node):[];
+
+  const renderItem = ({ item }) => (
+    <RepositoryItem 
+      fullName={item.fullName}
+      description={item.description}
+      language={item.language}
+      stargazersCount={item.stargazersCount}
+      forksCount={item.forksCount}
+      reviewCount={item.reviewCount}
+      ratingAverage={item.ratingAverage}
+      ownerAvatarUrl={item.ownerAvatarUrl}
+    />
+  );
+
+  return (
+    <FlatList
+      data={repositoryNodes}
+      ItemSeparatorComponent={ItemSeparator}
+      // other props
+      renderItem={renderItem}
+      keyExtractor={item => item.id}
+    />
+  );
+};
+
+export default RepositoryList;
+
+/*const repositories = [
   {
     id: 'jaredpalmer.formik',
     fullName: 'jaredpalmer/formik',
@@ -53,33 +87,4 @@ const repositories = [
     reviewCount: 0,
     ownerAvatarUrl: 'https://avatars3.githubusercontent.com/u/13142323?v=4',
   },
-];
-
-const ItemSeparator = () => <View style={styles.separator} />;
-
-const RepositoryList = () => {
-  const renderItem = ({ item }) => (
-    <RepositoryItem 
-      fullName={item.fullName}
-      description={item.description}
-      language={item.language}
-      stargazersCount={item.stargazersCount}
-      forksCount={item.forksCount}
-      reviewCount={item.reviewCount}
-      ratingAverage={item.ratingAverage}
-      ownerAvatarUrl={item.ownerAvatarUrl}
-    />
-  );
-
-  return (
-    <FlatList
-      data={repositories}
-      ItemSeparatorComponent={ItemSeparator}
-      // other props
-      renderItem={renderItem}
-      keyExtractor={item => item.id}
-    />
-  );
-};
-
-export default RepositoryList;
+];*/
