@@ -5,7 +5,8 @@ const theme = {
     textInverted: '#fff',
     primary: '#0366d6',
     background: '#e1e4e8',
-    backgroundActive: 'white'
+    backgroundActive: 'white',
+    error: '#d73a4a',
   },
   fontSizes: {
     body: 14,
