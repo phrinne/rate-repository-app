@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 const Badge = ({ text }) => {
   return (
     <View style={styles.container}>
-        <Text style={styles.text}>
+        <Text style={styles.text} testID="language">
           {text}
         </Text>
     </View>

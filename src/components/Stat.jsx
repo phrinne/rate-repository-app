@@ -20,7 +20,7 @@ const Stat = ({ number, name }) => {
 
   return (
     <View style={styles.container}>
-        <Text fontWeight="bold" fontSize="subheading" style={styles.itemWithMargin}>
+        <Text fontWeight="bold" fontSize="subheading" style={styles.itemWithMargin} testID="stat">
           {numberToShow}
         </Text>
         <Text color="textSecondary">

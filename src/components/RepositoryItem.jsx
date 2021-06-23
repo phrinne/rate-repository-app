@@ -42,10 +42,10 @@ const RepositoryItem = ({ fullName, description, language, stargazersCount, fork
           <Image style={styles.image} source={{ uri: `${ownerAvatarUrl}` }} />
           <View style={styles.headerRows}>
             <View style={styles.headerRow}>
-              <Text fontWeight="bold" fontSize="subheading">{fullName}</Text>
+              <Text fontWeight="bold" fontSize="subheading" testID="name">{fullName}</Text>
             </View>
             <View style={styles.headerRow}>
-              <Text color="textSecondary">{description}</Text>
+              <Text color="textSecondary" testID="description">{description}</Text>
             </View>
             <View style={styles.headerRow}>
               <Badge text={language} />
