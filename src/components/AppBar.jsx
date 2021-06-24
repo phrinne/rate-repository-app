@@ -33,8 +33,8 @@ const AppBar = () => {
   const handleLogout = async () => {
     await authStorage.removeAccessToken();
     //console.log("token cleared");
-    const token = await authStorage.getAccessToken();
-    console.log("TOKEN NOW: ", token);
+    /*const token = */await authStorage.getAccessToken();
+    //console.log("TOKEN NOW: ", token);
     apolloClient.resetStore();
     //history.push("/signin");
   };
@@ -44,6 +44,7 @@ const AppBar = () => {
       <ScrollView horizontal>
         <AppBarTab name={"Repositories"} linkTo={"/"} />
         {!loggedIn && <AppBarTab name={"Sign In"} linkTo={"/signin"} />}
+        {loggedIn && <AppBarTab name={"Create a review"} linkTo={"/createreview"} />}
         {loggedIn && <AppBarTab name={"Sign Out"} onPress={handleLogout} />}
       </ScrollView>
     </View>

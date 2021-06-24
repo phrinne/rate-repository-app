@@ -6,6 +6,7 @@ import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
 import RepositoryPage from './RepositoryPage';
 import SignIn from './SignIn';
+import CreateReview from './CreateReview';
 import theme from '../styles/theme';
 import useRepositories from '../hooks/useRepositories';
 
@@ -27,6 +28,9 @@ const Main = () => {
       <Switch>
         <Route path="/signin" exact>
           <SignIn />
+        </Route>
+        <Route path="/createreview" exact>
+          <CreateReview />
         </Route>
         <Route path="/repos/:id">
           <RepositoryPage reposdata={data} reposloading={loading} />
