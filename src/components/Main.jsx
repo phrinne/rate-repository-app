@@ -4,8 +4,10 @@ import { Route, Switch, Redirect } from 'react-router-native';
 
 import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
+import RepositoryPage from './RepositoryPage';
 import SignIn from './SignIn';
 import theme from '../styles/theme';
+import useRepositories from '../hooks/useRepositories';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,16 +18,21 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
+  const { data, loading } = useRepositories();
+  //
   return (
     <>
     <View style={styles.container}>
       <AppBar />
       <Switch>
-      <Route path="/signin" exact>
+        <Route path="/signin" exact>
           <SignIn />
         </Route>
+        <Route path="/repos/:id">
+          <RepositoryPage reposdata={data} reposloading={loading} />
+        </Route>
         <Route path="/" exact>
-          <RepositoryList />
+          <RepositoryList data={data} loading={loading} />
         </Route>
         <Redirect to="/" />
       </Switch>

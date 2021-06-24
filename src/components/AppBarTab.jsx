@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, Pressable, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
+import Text from './Text';
 import theme from '../styles/theme';
 import { Link } from 'react-router-native';
 
@@ -7,18 +8,13 @@ const styles = StyleSheet.create({
   container: {
     padding: theme.spacing.medium,
   },
-  text: {
-    color: theme.colors.textInverted,
-    fontSize: theme.fontSizes.tabItem,
-    fontWeight: theme.fontWeights.bold
-  }
 });
 
 const AppBarTab = ({ name, linkTo, onPress }) => {
   if(!linkTo) {
     return (
       <Pressable style={styles.container} onPress={onPress}>
-        <Text style={styles.text}>
+        <Text fontWeight="bold" fontSize="tab" color="inverted">
           {name}
         </Text>
       </Pressable>
@@ -27,7 +23,7 @@ const AppBarTab = ({ name, linkTo, onPress }) => {
   return (
     <Pressable style={styles.container} onPress={onPress}>
       <Link to={linkTo}>
-        <Text style={styles.text}>
+        <Text fontWeight="bold" fontSize="tab" color="inverted">
           {name}
         </Text>
       </Link>

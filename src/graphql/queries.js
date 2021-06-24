@@ -28,3 +28,11 @@ export const ME = gql`
     }
   }
 `;
+
+export const GET_URL = gql`
+  query GetUrl($id: ID!) {
+    repository(id: $id) {
+      url
+    }
+  }
+`;

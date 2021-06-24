@@ -25,14 +25,14 @@ const AppBar = () => {
 
   if(loading) return <Text>loading...</Text>;
   
-  console.log('APP BAR DATA', data);
+  //console.log('APP BAR DATA', data);
   const loggedIn = data.authorizedUser;
 
   //remove the user's access token from the storage 
   //and reset the Apollo Client's store with the resetStore method
   const handleLogout = async () => {
     await authStorage.removeAccessToken();
-    console.log("token cleared");
+    //console.log("token cleared");
     const token = await authStorage.getAccessToken();
     console.log("TOKEN NOW: ", token);
     apolloClient.resetStore();

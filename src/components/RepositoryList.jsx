@@ -1,7 +1,7 @@
 import React from 'react';
-import { FlatList, View, StyleSheet, Text } from 'react-native';
+import { FlatList, View, StyleSheet, Text, Pressable } from 'react-native';
 import RepositoryItem from './RepositoryItem';
-import useRepositories from '../hooks/useRepositories';
+import { useHistory } from "react-router-native";
 
 const styles = StyleSheet.create({
   separator: {
@@ -12,43 +12,52 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 export const RepositoryListContainer = ({ repositories }) => {
-  
+  let history = useHistory();
   const repositoryNodes = repositories?repositories.edges.map(edge => edge.node):[];
 
-  const renderItem = ({ item }) => (
-    <RepositoryItem 
-      fullName={item.fullName}
-      description={item.description}
-      language={item.language}
-      stargazersCount={item.stargazersCount}
-      forksCount={item.forksCount}
-      reviewCount={item.reviewCount}
-      ratingAverage={item.ratingAverage}
-      ownerAvatarUrl={item.ownerAvatarUrl}
-    />
-  );
+  const renderItem = ({ item }) => {
+    return (
+      <Pressable onPress={() => history.push(`/repos/${item.id}`)}>
+        <RepositoryItem {...item} />
+      </Pressable>
+      );
+  };
 
   return (
     <FlatList
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
-      // other props
       renderItem={renderItem}
       keyExtractor={item => item.id}
     />
   );
 };
 
-const RepositoryList = () => {
-  const { data, loading } = useRepositories();
-  if(loading) return <Text>loading...</Text>;
+const RepositoryList = ({ data, loading }) => {
+  if(loading) {
+    return (<Text>loading...</Text>);
+  }
   return <RepositoryListContainer repositories={data.repositories} />;
 };
 
 export default RepositoryList;
 
 
-
+    /*return (
+    <Pressable onPress={handlePress}>
+      <RepositoryItem 
+        fullName={item.fullName}
+        description={item.description}
+        language={item.language}
+        stargazersCount={item.stargazersCount}
+        forksCount={item.forksCount}
+        reviewCount={item.reviewCount}
+        ratingAverage={item.ratingAverage}
+        ownerAvatarUrl={item.ownerAvatarUrl}
+        showMore={false}
+      />
+    </Pressable>
+    );*/
 
 
 

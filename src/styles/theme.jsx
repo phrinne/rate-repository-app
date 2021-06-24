@@ -1,4 +1,5 @@
 import { Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const theme = {
   colors: {
@@ -36,5 +37,30 @@ const theme = {
     componentHeight: 56
   }
 };
+
+export const componentStyles = StyleSheet.create({
+  container: {
+    padding: theme.spacing.medium,
+    backgroundColor: theme.colors.backgroundActive,
+  },
+  component: {
+    height: theme.spacing.componentHeight,
+    borderRadius: theme.spacing.xsmall,
+    paddingHorizontal: theme.spacing.medium
+  },
+  buttonContainer: {
+    height: theme.spacing.componentHeight,
+    borderRadius: theme.spacing.xsmall,
+    paddingHorizontal: theme.spacing.medium,
+    backgroundColor: theme.colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: theme.colors.textInverted,
+    fontSize: theme.fontSizes.body,
+    fontWeight: theme.fontWeights.bold,
+  },
+});
 
 export default theme;

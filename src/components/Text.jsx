@@ -16,8 +16,14 @@ const styles = StyleSheet.create({
   colorPrimary: {
     color: theme.colors.primary,
   },
+  colorInverted: {
+    color: theme.colors.textInverted,
+  },
   fontSizeSubheading: {
     fontSize: theme.fontSizes.subheading,
+  },
+  fontSizeTab: {
+    fontSize: theme.fontSizes.tabItem,
   },
   fontWeightBold: {
     fontWeight: theme.fontWeights.bold,
@@ -29,7 +35,9 @@ const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
     styles.text,
     color === 'textSecondary' && styles.colorTextSecondary,
     color === 'primary' && styles.colorPrimary,
+    color === 'inverted' && styles.colorInverted,
     fontSize === 'subheading' && styles.fontSizeSubheading,
+    fontSize === 'tab' && styles.fontSizeTab,
     fontWeight === 'bold' && styles.fontWeightBold,
     style,
   ];

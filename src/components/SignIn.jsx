@@ -1,31 +1,12 @@
 import React from 'react';
 import * as yup from 'yup';
-import { Text, Pressable, View, StyleSheet } from 'react-native';
+import { /*Text, Pressable,*/ View, /*StyleSheet*/ } from 'react-native';
+import Button from './Button';
 import { Formik } from 'formik';
 import FormikTextInput from './FormikTextInput';
-import theme from '../styles/theme';
+import { componentStyles } from '../styles/theme';
 import useSignIn from '../hooks/useSignIn';
 import { useHistory } from "react-router-native";
-
-const styles = StyleSheet.create({
-  container: {
-    padding: theme.spacing.medium,
-    backgroundColor: theme.colors.backgroundActive
-  },
-  component: {
-    height: theme.spacing.componentHeight,
-    borderRadius: theme.spacing.xsmall,
-    paddingHorizontal: theme.spacing.medium
-  },
-  button: {
-    backgroundColor: theme.colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: theme.colors.textInverted,
-  }
-});
 
 const initialValues = {
   username: '',
@@ -43,12 +24,10 @@ const validationSchema = yup.object().shape({
 
 const SigninForm = ({ onSubmit }) => {
   return (
-    <View style={styles.container}>
-      <FormikTextInput name="username" placeholder="Username" style={styles.component} testID="usernameField" />
-      <FormikTextInput name="password" placeholder="Password" secureTextEntry style={styles.component} testID="passwordField" />
-      <Pressable onPress={onSubmit} style={[styles.component, styles.button]}>
-        <Text style={styles.buttonText} testID="submitButton">Sign in</Text>
-      </Pressable>
+    <View style={componentStyles.container}>
+      <FormikTextInput name="username" placeholder="Username" style={componentStyles.component} testID="usernameField" />
+      <FormikTextInput name="password" placeholder="Password" secureTextEntry style={componentStyles.component} testID="passwordField" />
+      <Button onPress={onSubmit} title="Sign in" testID="submitButton" />
     </View>
   );
 };
