@@ -61,6 +61,9 @@ export const componentStyles = StyleSheet.create({
     fontSize: theme.fontSizes.body,
     fontWeight: theme.fontWeights.bold,
   },
+  separator: {
+    height: 10,
+  },
 });
 
 export default theme;

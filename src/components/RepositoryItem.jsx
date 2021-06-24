@@ -1,15 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Image/*, Text as NativeText*/ } from 'react-native';
-import theme from '../styles/theme';
+import theme, { componentStyles } from '../styles/theme';
 import Text from "./Text";
 import Badge from "./Badge";
 import Stat from "./Stat";
 
 const styles = StyleSheet.create({
-  container: {
-    padding: theme.spacing.medium,
-    backgroundColor: theme.colors.backgroundActive
-  },
   header: {
     flexDirection: 'row',
     paddingBottom: theme.spacing.medium,
@@ -37,7 +33,7 @@ const styles = StyleSheet.create({
 
 const RepositoryItem = ({ fullName, description, language, stargazersCount, forksCount, reviewCount, ratingAverage, ownerAvatarUrl }) => {
     return (
-      <View style={styles.container}>
+      <View style={componentStyles.container}>
         <View style={styles.header}>
           <Image style={styles.image} source={{ uri: `${ownerAvatarUrl}` }} />
           <View style={styles.headerRows}>
