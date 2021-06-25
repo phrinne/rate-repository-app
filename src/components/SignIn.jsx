@@ -1,6 +1,6 @@
 import React from 'react';
 import * as yup from 'yup';
-import { /*Text, Pressable,*/ View, /*StyleSheet*/ } from 'react-native';
+import { View } from 'react-native';
 import Button from './Button';
 import { Formik } from 'formik';
 import FormikTextInput from './FormikTextInput';
