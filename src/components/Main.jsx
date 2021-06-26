@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Route, Switch, Redirect } from 'react-router-native';
 
@@ -8,6 +8,7 @@ import RepositoryPage from './RepositoryPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import CreateReview from './CreateReview';
+
 import theme from '../styles/theme';
 import useRepositories from '../hooks/useRepositories';
 
@@ -20,8 +21,13 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
-  const { data, loading } = useRepositories();
-  //
+  const [repoSort, setRepoSort] = useState("latest");
+  const repos = useRepositories(repoSort);
+
+  const handleSort = (value) => {
+    setRepoSort(value);
+  };
+  
   return (
     <>
     <View style={styles.container}>
@@ -37,10 +43,10 @@ const Main = () => {
           <CreateReview />
         </Route>
         <Route path="/repos/:id">
-          <RepositoryPage reposdata={data} reposloading={loading} />
+          <RepositoryPage repos={repos} />
         </Route>
         <Route path="/" exact>
-          <RepositoryList data={data} loading={loading} />
+          <RepositoryList repos={repos} sortValue={repoSort} sortCb={handleSort} />
         </Route>
         <Redirect to="/" />
       </Switch>

@@ -1,12 +1,13 @@
 import React from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList, Pressable, View } from 'react-native';
 import Text from './Text';
 import ItemSeparator from './ItemSeparator';
 import RepositoryItem from './RepositoryItem';
+import RepositorySorter from './RepositorySorter';
 import { useHistory } from "react-router-native";
 
 
-export const RepositoryListContainer = ({ repositories }) => {
+export const RepositoryListContainer = ({ repositories, sortValue, sortCb }) => {
   let history = useHistory();
   const repositoryNodes = repositories?repositories.edges.map(edge => edge.node):[];
 
@@ -19,20 +20,24 @@ export const RepositoryListContainer = ({ repositories }) => {
   };
 
   return (
-    <FlatList
-      data={repositoryNodes}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={renderItem}
-      keyExtractor={item => item.id}
-    />
+    <View>
+      <FlatList
+        ListHeaderComponent={() => <RepositorySorter sortValue={sortValue} sortCb={sortCb} />}
+        data={repositoryNodes}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
+    </View>
+    
   );
 };
 
-const RepositoryList = ({ data, loading }) => {
-  if(loading) {
+const RepositoryList = ({ repos, sortValue, sortCb }) => {
+  if(repos.loading) {
     return (<Text>loading...</Text>);
   }
-  return <RepositoryListContainer repositories={data.repositories} />;
+  return <RepositoryListContainer repositories={repos.data.repositories} sortValue={sortValue} sortCb={sortCb} />;
 };
 
 export default RepositoryList;

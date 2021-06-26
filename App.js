@@ -6,6 +6,10 @@ import createApolloClient from './src/utils/apolloClient';
 import AuthStorageContext from './src/contexts/AuthStorageContext';
 import AuthStorage from './src/utils/authStorage';
 
+import { Provider as PaperProvider } from 'react-native-paper';
+//import { AppRegistry } from 'react-native';
+//import { name as appName } from './app.config';
+
 const authStorage = new AuthStorage();
 const apolloClient = createApolloClient(authStorage);
 
@@ -14,9 +18,13 @@ export default function App() {
     <NativeRouter>
       <ApolloProvider client={apolloClient}>
         <AuthStorageContext.Provider value={authStorage}>
-          <Main />
+          <PaperProvider>
+            <Main />
+          </PaperProvider>
         </AuthStorageContext.Provider>
       </ApolloProvider>
     </NativeRouter>
   );
 }
+
+//AppRegistry.registerComponent(appName, () => App);
