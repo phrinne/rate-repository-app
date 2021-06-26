@@ -1,24 +1,28 @@
 import { useQuery } from '@apollo/client';
 import { GET_REPOSITORIES } from '../graphql/queries';
 
-const useRepositories = (filter = "latest") => {
-  console.log("REPOS HOOK FILTER", filter);
+const useRepositories = (sort = "latest", search = "") => {
   let params = {
     orderBy: "CREATED_AT",
-    orderDirection: "DESC"
+    orderDirection: "DESC",
+    searchKeyword: search
   };
-  if(filter === 'highest') {
+  if(sort === 'highest' || sort === 'lowest') params.orderBy = "RATING_AVERAGE";
+  if(sort === 'lowest') params.orderDirection = "ASC";
+  
+  console.log(params);
+  /*{
     params = {
       orderBy: "RATING_AVERAGE",
       orderDirection: "DESC"
     };
   }
-  if(filter === 'lowest') {
+  if(sort === 'lowest') {
     params = {
       orderBy: "RATING_AVERAGE",
       orderDirection: "ASC"
     };
-  }
+  }*/
 
   const { data, error, loading } = useQuery(GET_REPOSITORIES, { variables: params, fetchPolicy: 'cache-and-network' });
   return { data, error, loading };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Route, Switch, Redirect } from 'react-router-native';
+import { useDebounce } from 'use-debounce';
 
 import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
@@ -22,10 +23,15 @@ const styles = StyleSheet.create({
 
 const Main = () => {
   const [repoSort, setRepoSort] = useState("latest");
-  const repos = useRepositories(repoSort);
+  const [repoSearch, setRepoSearch] = useState("");
+  const [debouncedSearch] = useDebounce(repoSearch, 500);
+  const repos = useRepositories(repoSort, debouncedSearch);
 
   const handleSort = (value) => {
     setRepoSort(value);
+  };
+  const handleSearch = (value) => {
+    setRepoSearch(value);
   };
   
   return (
@@ -46,7 +52,7 @@ const Main = () => {
           <RepositoryPage repos={repos} />
         </Route>
         <Route path="/" exact>
-          <RepositoryList repos={repos} sortValue={repoSort} sortCb={handleSort} />
+          <RepositoryList repos={repos} sortValue={repoSort} sortCb={handleSort} searchValue={repoSearch} searchCb={handleSearch} />
         </Route>
         <Redirect to="/" />
       </Switch>

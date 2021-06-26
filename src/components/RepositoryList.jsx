@@ -3,14 +3,39 @@ import { FlatList, Pressable, View } from 'react-native';
 import Text from './Text';
 import ItemSeparator from './ItemSeparator';
 import RepositoryItem from './RepositoryItem';
-import RepositorySorter from './RepositorySorter';
+import ListHeader from './ListHeader';
 import { useHistory } from "react-router-native";
 
+export class RepositoryListContainer extends React.Component {
+  renderHeader = () => {
+    return (
+      <ListHeader sortValue={this.props.sortValue} sortCb={this.props.sortCb} searchValue={this.props.searchValue} searchCb={this.props.searchCb} />
+    );
+  };
 
-export const RepositoryListContainer = ({ repositories, sortValue, sortCb }) => {
-  let history = useHistory();
-  const repositoryNodes = repositories?repositories.edges.map(edge => edge.node):[];
+  renderItem = ({ item }) => {
+    return (
+      <Pressable onPress={() => this.props.history.push(`/repos/${item.id}`)}>
+        <RepositoryItem {...item} />
+      </Pressable>
+      );
+  };
 
+  render() {
+    return (
+      <View>
+      <FlatList
+        ListHeaderComponent={this.renderHeader}
+        data={this.props.repositories}
+        ItemSeparatorComponent={ItemSeparator}
+        keyExtractor={item => item.id}
+        renderItem={this.renderItem}
+      />
+    </View>
+    );
+  }
+}
+/*export const RepositoryListContainer = ({ repositories, sortValue, sortCb, searchValue, searchCb, history }) => {
   const renderItem = ({ item }) => {
     return (
       <Pressable onPress={() => history.push(`/repos/${item.id}`)}>
@@ -22,8 +47,8 @@ export const RepositoryListContainer = ({ repositories, sortValue, sortCb }) => 
   return (
     <View>
       <FlatList
-        ListHeaderComponent={() => <RepositorySorter sortValue={sortValue} sortCb={sortCb} />}
-        data={repositoryNodes}
+        ListHeaderComponent={() => <ListHeader sortValue={sortValue} sortCb={sortCb} searchValue={searchValue} searchCb={searchCb} />}
+        data={repositories}
         ItemSeparatorComponent={ItemSeparator}
         renderItem={renderItem}
         keyExtractor={item => item.id}
@@ -31,13 +56,16 @@ export const RepositoryListContainer = ({ repositories, sortValue, sortCb }) => 
     </View>
     
   );
-};
+};*/
 
-const RepositoryList = ({ repos, sortValue, sortCb }) => {
+const RepositoryList = ({ repos, sortValue, sortCb, searchValue, searchCb }) => {
+  let history = useHistory();
+
   if(repos.loading) {
     return (<Text>loading...</Text>);
   }
-  return <RepositoryListContainer repositories={repos.data.repositories} sortValue={sortValue} sortCb={sortCb} />;
+  const repoNodes = repos.data.repositories?repos.data.repositories.edges.map(edge => edge.node):[];
+  return <RepositoryListContainer repositories={repoNodes} sortValue={sortValue} sortCb={sortCb} searchValue={searchValue} searchCb={searchCb} history={history} />;
 };
 
 export default RepositoryList;
