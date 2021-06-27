@@ -1,9 +1,14 @@
 import { gql } from '@apollo/client';
 
-// 
+/*
+Make sure you have the pageInfo and the cursor fields in your repositories query 
+as described in the pagination examples. 
+You will also need to include the after and first arguments for the query.
+*/
 export const GET_REPOSITORIES = gql`
-  query AllRepos($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String){
-    repositories(orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword) {
+  query AllRepos($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String, $first: Int, $after: String){
+    repositories(orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword, first: $first, after: $after) {
+      totalCount
       edges {
         node {
           id,
@@ -16,6 +21,12 @@ export const GET_REPOSITORIES = gql`
           ratingAverage,
           ownerAvatarUrl,
         }
+        cursor
+      }
+      pageInfo {
+        endCursor
+        startCursor
+        hasNextPage
       }
     }
   }
@@ -39,9 +50,9 @@ export const GET_URL = gql`
 `;
 
 export const GET_REVIEWS = gql`
-  query GetReviews($id: ID!) {
+  query GetReviews($id: ID!, $first: Int, $after: String) {
     repository(id: $id) {
-      reviews {
+      reviews(first: $first, after: $after) {
         edges {
           node {
             id
@@ -53,6 +64,12 @@ export const GET_REVIEWS = gql`
               username
             }
           }
+          cursor
+        }
+        pageInfo {
+          endCursor
+          startCursor
+          hasNextPage
         }
       }  
     }

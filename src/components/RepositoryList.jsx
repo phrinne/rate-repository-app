@@ -6,7 +6,7 @@ import RepositoryItem from './RepositoryItem';
 import ListHeader from './ListHeader';
 import { useHistory } from "react-router-native";
 
-export class RepositoryListContainer extends React.Component {
+/*export class RepositoryListContainer extends React.Component {
   renderHeader = () => {
     return (
       <ListHeader sortValue={this.props.sortValue} sortCb={this.props.sortCb} searchValue={this.props.searchValue} searchCb={this.props.searchCb} />
@@ -34,8 +34,8 @@ export class RepositoryListContainer extends React.Component {
     </View>
     );
   }
-}
-/*export const RepositoryListContainer = ({ repositories, sortValue, sortCb, searchValue, searchCb, history }) => {
+}*/
+export const RepositoryListContainer = ({ repositories, onEndReach, sortValue, sortCb, searchValue, searchCb, history }) => {
   const renderItem = ({ item }) => {
     return (
       <Pressable onPress={() => history.push(`/repos/${item.id}`)}>
@@ -45,27 +45,30 @@ export class RepositoryListContainer extends React.Component {
   };
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       <FlatList
         ListHeaderComponent={() => <ListHeader sortValue={sortValue} sortCb={sortCb} searchValue={searchValue} searchCb={searchCb} />}
         data={repositories}
         ItemSeparatorComponent={ItemSeparator}
         renderItem={renderItem}
         keyExtractor={item => item.id}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
     </View>
     
   );
-};*/
+};
 
-const RepositoryList = ({ repos, sortValue, sortCb, searchValue, searchCb }) => {
+const RepositoryList = ({ repos, sortValue, sortCb, searchValue, searchCb, onEndReach }) => {
   let history = useHistory();
 
   if(repos.loading) {
     return (<Text>loading...</Text>);
   }
-  const repoNodes = repos.data.repositories?repos.data.repositories.edges.map(edge => edge.node):[];
-  return <RepositoryListContainer repositories={repoNodes} sortValue={sortValue} sortCb={sortCb} searchValue={searchValue} searchCb={searchCb} history={history} />;
+
+  const repoNodes = repos.repositories?repos.repositories.edges.map(edge => edge.node):[];
+  return <RepositoryListContainer repositories={repoNodes} onEndReach={onEndReach} sortValue={sortValue} sortCb={sortCb} searchValue={searchValue} searchCb={searchCb} history={history} />;
 };
 
 export default RepositoryList;

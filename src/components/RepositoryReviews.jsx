@@ -54,13 +54,15 @@ const RepositoryReview = ({ review }) => {
   );
 };
 
-const RepositoryReviews = ({ reviews }) => {
+const RepositoryReviews = ({ reviews, onEndReach }) => {
   return (
     <FlatList
       data={reviews}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({ item }) => <RepositoryReview review={item} />}
       keyExtractor={item => item.id}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };

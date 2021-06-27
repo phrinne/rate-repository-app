@@ -25,13 +25,17 @@ const Main = () => {
   const [repoSort, setRepoSort] = useState("latest");
   const [repoSearch, setRepoSearch] = useState("");
   const [debouncedSearch] = useDebounce(repoSearch, 500);
-  const repos = useRepositories(repoSort, debouncedSearch);
+  const repoHook = useRepositories(repoSort, debouncedSearch, 4);
 
   const handleSort = (value) => {
     setRepoSort(value);
   };
   const handleSearch = (value) => {
     setRepoSearch(value);
+  };
+  const onEndReach = () => {
+    console.log('You have reached the end of the list');
+    repoHook.fetchMore();
   };
   
   return (
@@ -49,10 +53,10 @@ const Main = () => {
           <CreateReview />
         </Route>
         <Route path="/repos/:id">
-          <RepositoryPage repos={repos} />
+          <RepositoryPage repos={repoHook} />
         </Route>
         <Route path="/" exact>
-          <RepositoryList repos={repos} sortValue={repoSort} sortCb={handleSort} searchValue={repoSearch} searchCb={handleSearch} />
+          <RepositoryList repos={repoHook} sortValue={repoSort} sortCb={handleSort} searchValue={repoSearch} searchCb={handleSearch} onEndReach={onEndReach} />
         </Route>
         <Redirect to="/" />
       </Switch>

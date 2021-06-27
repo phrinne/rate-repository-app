@@ -14,7 +14,7 @@ import { componentStyles } from '../styles/theme';
 const RepositoryPage = ({ repos }) => {
   let { id } = useParams();
   let url = useUrl(id);
-  let reviews = useReviews(id);
+  let reviewsHook = useReviews(id, 6);
 
   if(repos.loading) {
     return (<Text>repos loading...</Text>);
@@ -22,14 +22,19 @@ const RepositoryPage = ({ repos }) => {
   if(url.loading) {
     return (<Text>url loading...</Text>);
   }
-  if(reviews.loading) {
+  if(reviewsHook.loading) {
     return (<Text>reviews loading...</Text>);
   }
 
-  const repositoryNodes = repos.data.repositories?repos.data.repositories.edges.map(edge => edge.node):[];
+  const repositoryNodes = repos.repositories?repos.repositories.edges.map(edge => edge.node):[];
   const repo = repositoryNodes.find(r => r.id === id);
-  const reviewNodes = reviews.data.repository.reviews?reviews.data.repository.reviews.edges.map(edge => edge.node):[];
+  const reviewNodes = reviewsHook.data.repository.reviews?reviewsHook.data.repository.reviews.edges.map(edge => edge.node):[];
   
+  const onEndReach = () => {
+    console.log('You have reached the end of the reviews list');
+    reviewsHook.fetchMore();
+  };
+
   return (
     <>
     <RepositoryItem {...repo} />
@@ -37,7 +42,7 @@ const RepositoryPage = ({ repos }) => {
       <Button onPress={() => Linking.openURL(url.data.repository.url)} title="Open in GitHub" />
     </View>
     <ItemSeparator />
-    <RepositoryReviews reviews={reviewNodes} />
+    <RepositoryReviews reviews={reviewNodes} onEndReach={onEndReach} />
     </>
   );
 };
