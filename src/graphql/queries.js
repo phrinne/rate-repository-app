@@ -56,6 +56,10 @@ export const ME = gql`
               id
               username
             }
+            repository {
+              id
+              fullName
+            }
           }
         }
       }
@@ -84,6 +88,10 @@ export const GET_REVIEWS = gql`
             user {
               id
               username
+            }
+            repository {
+              id
+              fullName
             }
           }
           cursor

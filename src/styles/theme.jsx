@@ -56,6 +56,9 @@ export const componentStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  negativeBackground: {
+    backgroundColor: theme.colors.error,
+  },
   buttonText: {
     color: theme.colors.textInverted,
     fontSize: theme.fontSizes.body,

@@ -6,8 +6,8 @@ const useMe = (includeReviews) => {
     includeReviews
   };
   if(!includeReviews) params.includeReviews = false;
-  const { data, error, loading } = useQuery(ME, { variables: params, fetchPolicy: 'cache-and-network' });
-  return { data, error, loading };
+  const { data, error, loading, refetch } = useQuery(ME, { variables: params, fetchPolicy: 'cache-and-network' });
+  return { data, error, loading, refetch };
 };
 
 export default useMe;

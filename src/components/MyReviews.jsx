@@ -4,7 +4,7 @@ import useMe from '../hooks/useMe';
 import RepositoryReviews from './RepositoryReviews';
 
 const MyReviews = () => {
-  const { data, loading } = useMe(true);
+  const { data, loading, refetch } = useMe(true);
 
   if(loading) return <Text>loading...</Text>;
 
@@ -13,7 +13,7 @@ const MyReviews = () => {
 
   return (
     <>
-    <RepositoryReviews reviews={reviews} />
+    <RepositoryReviews reviews={reviews} showActions refetch={refetch} />
     </>
   );
 };
