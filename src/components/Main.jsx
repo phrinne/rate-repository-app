@@ -9,6 +9,7 @@ import RepositoryPage from './RepositoryPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import CreateReview from './CreateReview';
+import MyReviews from './MyReviews';
 
 import theme from '../styles/theme';
 import useRepositories from '../hooks/useRepositories';
@@ -51,6 +52,9 @@ const Main = () => {
         </Route>
         <Route path="/createreview" exact>
           <CreateReview />
+        </Route>
+        <Route path="/myreviews" exact>
+          <MyReviews />
         </Route>
         <Route path="/repos/:id">
           <RepositoryPage repos={repoHook} />

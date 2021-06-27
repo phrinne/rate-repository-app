@@ -32,11 +32,33 @@ export const GET_REPOSITORIES = gql`
   }
 `;
 
-export const ME = gql`
+/*export const ME = gql`
   query {
     authorizedUser {
       id
       username
+    }
+  }
+`;*/
+export const ME = gql`
+  query getAuthorizedUser($includeReviews: Boolean = false) {
+    authorizedUser {
+      id
+      username
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            id
+            text
+            rating
+            createdAt
+            user {
+              id
+              username
+            }
+          }
+        }
+      }
     }
   }
 `;
